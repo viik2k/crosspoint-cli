@@ -4,11 +4,9 @@ One line each. Outstanding work only; completed items are recorded in the handov
 
 ## HANDOVER — read this first
 
-Session ended mid-way through working this list. **Repo is green: `ruff check` clean,
-19 tests pass, 8 snapshots current.** Nothing is half-broken, but two things are
-half-*built* — see "Started, not finished" below.
+**Repo is green: `ruff check` clean, 22 tests pass, 8 snapshots current.**
 
-### Done this session (was deferred, now implemented)
+### Done (sessions to date)
 
 - `Channel.bit_depth` / `samples_per_frame`; `Channel.format` is now derived from them
   rather than the invented `PCM24` string. `Channel.label` prefers `friendly_name`.
@@ -28,6 +26,12 @@ half-*built* — see "Started, not finished" below.
 - Events tab: `RichLog` appends new snapshot events across refreshes without replaying the old sequence.
 - Help overlay: generated from the app and matrix `BINDINGS`.
 - Command palette: `Ctrl-P` searches device names and moves the matrix cursor to the device.
+- `Device.firmware_version`, `software_version`, `min_latency_us`/`max_latency_us`
+  (wire units — netaudio's public model converts to seconds, crosspoint does not),
+  `tx_flow_count`/`rx_flow_count`, `num_networks`, `is_locked` — parsed and shown on
+  the Devices tab (fixture: `device-a-dsp` is locked, `device-f-recorder` reports 3 rx flows).
+- Matrix: `m`/`M` jump to the next/previous problem cell **on the current RX device**;
+  `n`/`N` remain matrix-wide row-major.
 
 ### Next, in the order I would do them
 
@@ -47,15 +51,20 @@ half-*built* — see "Started, not finished" below.
 
 ## Mutating operations (out of scope for v1 — read only)
 
-- Create and remove subscriptions.
-- Rename devices and channels.
-- Set sample rate, latency, encoding.
-- AVIO gain control.
-- Device identify / flash LED.
-- Device lock and unlock.
-- Reboot and clear-config.
-- Multicast flow create and delete.
-- Preferred-leader and clock-source changes.
+- Add and remove subscriptions, including bulk routing changes.
+- Create and delete TX multicast flows.
+- Set and reset device names.
+- Set and reset TX and RX channel names.
+- Set sample rate, encoding bit depth, and latency.
+- Enable and disable AES67 mode.
+- Configure the device network interface as DHCP or static IP.
+- Set AVIO input and output gain.
+- Start and stop device volume-control or metering sessions.
+- Identify a device or flash its LED.
+- Lock and unlock a device.
+- Set or clear preferred-leader and clock-source settings.
+- Reboot a device.
+- Factory-reset or clear a device's configuration.
 
 ## Backends
 
@@ -66,9 +75,8 @@ half-*built* — see "Started, not finished" below.
 
 ## Protocol gaps
 
-- Status codes 5, 35, 36, 37, 38, 39, 69, 70, 96, 97, 112, 512, 65536 are named by netaudio but carry no label text; severity is inferred from the constant name and marked TODO in `model.py`. Do not invent text for these.
-- Clock detail beyond role/sync/offset/external (PTP v1 vs v2, grandmaster identity, clock domain id) is not covered by netaudio's public model.
-- netaudio also exposes `firmware_version`, `software_version`, `min_latency`/`max_latency`, `tx_flow_count`/`rx_flow_count`, `num_networks`, `is_locked` — modelled by netaudio, not yet by crosspoint.
+- Status codes 5, 35, 36, 37, 38, 39, 69, 70, 96, 97, 112, 512, 65536 are named by netaudio but carry no label text; severity is inferred from the constant name and marked TODO in `model.py`. Verified against the 0.2.5 wheel: its label loader runs but returns nothing for these codes. Do not invent text for them.
+- Clock detail beyond role/sync/offset/external: netaudio 0.2.5's `DanteDevice` does expose `ptp_v1_role`, `clock_mac` (grandmaster identity) and `preferred_leader`, plus `product_version`, `board_name` and device-level `encoding`/`bit_depth` — none modelled by crosspoint yet.
 
 ## UI
 
@@ -78,7 +86,6 @@ half-*built* — see "Started, not finished" below.
 ## Matrix at scale
 
 - Fold state does not persist across *runs* — that needs a config file, which is not warranted yet.
-- `n` walks problem cells in row-major order only; no "next problem on this device".
 - Sidebar is a flat 200-row list at production scale; problem counts help, grouping would help more.
 - `_rebuild` is ~35 ms at 200 devices and runs on every fold toggle; it is debounced for filter typing but not incremental. Make it incremental only if fold toggles start to feel slow.
 - Column axis has no equivalent of the row gutter — see "Decided against" above for why.

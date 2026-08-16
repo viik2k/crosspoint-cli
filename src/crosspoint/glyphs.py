@@ -24,6 +24,7 @@ NERD = {
     "LATENCY": "",  #
     "FILTER": "",  #
     "SEARCH": "",  #
+    "LOCK": "",  # nf-fa-lock
 }
 
 ASCII = {
@@ -43,6 +44,7 @@ ASCII = {
     "LATENCY": "t",
     "FILTER": "=",
     "SEARCH": "/",
+    "LOCK": "+",
 }
 
 globals().update(NERD)
@@ -64,6 +66,7 @@ SAMPLE_RATE: str
 LATENCY: str
 FILTER: str
 SEARCH: str
+LOCK: str
 
 
 def use_ascii(enabled: bool = True) -> None:

@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Protocol, runtime_checkable
+from typing import Any, Protocol, runtime_checkable
 
 from .model import Channel, ClockStatus, Device, Snapshot, Subscription, status
 
@@ -23,7 +23,7 @@ class Backend(Protocol):
     async def snapshot(self) -> Snapshot: ...
 
 
-def _channels(raw: list[dict], direction: str) -> tuple[Channel, ...]:
+def _channels(raw: list[dict[str, Any]], direction: str) -> tuple[Channel, ...]:
     return tuple(
         Channel(
             index=c["index"],
@@ -37,7 +37,7 @@ def _channels(raw: list[dict], direction: str) -> tuple[Channel, ...]:
     )
 
 
-def parse_snapshot(data: dict) -> Snapshot:
+def parse_snapshot(data: dict[str, Any]) -> Snapshot:
     """dict -> Snapshot. Shared by mock and (later) pcap replay."""
     devices = []
     for d in data.get("devices", []):
@@ -60,6 +60,14 @@ def parse_snapshot(data: dict) -> Snapshot:
                 manufacturer=d.get("manufacturer"),
                 aes67_configured=d.get("aes67_configured"),
                 aes67_current=d.get("aes67_current"),
+                firmware_version=d.get("firmware_version"),
+                software_version=d.get("software_version"),
+                min_latency_us=d.get("min_latency_us"),
+                max_latency_us=d.get("max_latency_us"),
+                tx_flow_count=d.get("tx_flow_count"),
+                rx_flow_count=d.get("rx_flow_count"),
+                num_networks=d.get("num_networks"),
+                is_locked=d.get("is_locked"),
             )
         )
 
@@ -86,12 +94,12 @@ def parse_snapshot(data: dict) -> Snapshot:
 class MockBackend:
     """JSON fixtures. Deterministic, zero network."""
 
-    name = "mock"
+    name: str = "mock"
 
-    def __init__(self, path: Path | str | None = None, iface: str | None = None):
-        self.path = Path(path) if path else FIXTURE
-        self.iface = iface
-        self._data = json.loads(self.path.read_text(encoding="utf-8"))
+    def __init__(self, path: Path | str | None = None, iface: str | None = None) -> None:
+        self.path: Path = Path(path) if path else FIXTURE
+        self.iface: str | None = iface
+        self._data: dict[str, Any] = json.loads(self.path.read_text(encoding="utf-8"))
 
     async def snapshot(self) -> Snapshot:
         return parse_snapshot(self._data)
@@ -100,9 +108,12 @@ class MockBackend:
 class PcapBackend:
     """Replay a saved capture. Not built yet — see DEFERRED.md."""
 
-    name = "pcap"
+    name: str = "pcap"
 
     def __init__(self, path: Path | str, iface: str | None = None):
+        raise NotImplementedError("pcap replay is not built yet")
+
+    async def snapshot(self) -> Snapshot:
         raise NotImplementedError("pcap replay is not built yet")
 
 
@@ -127,8 +138,12 @@ def demo() -> None:
     assert any(len(d.rx_channels) == 64 for d in snap.devices), "fixture needs a 64ch device"
     assert any(s.severity.value == "error" for s in snap.subscriptions), "fixture needs a break"
     assert snap.clock_master, "fixture needs a clock master"
-    slaves = [d for d in snap.devices if d.clock and d.clock.role == "slave"]
-    assert any(abs(d.clock.frequency_offset_ppm or 0) > 5 for d in slaves), "need a drifting slave"
+    drifting = False
+    for device in snap.devices:
+        if device.clock and device.clock.role == "slave" and abs(device.clock.frequency_offset_ppm or 0) > 5:
+            drifting = True
+            break
+    assert drifting, "need a drifting slave"
     print(f"ok: {len(snap.devices)} devices, {len(snap.subscriptions)} subscriptions")
 
 

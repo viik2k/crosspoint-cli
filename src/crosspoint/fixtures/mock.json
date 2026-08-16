@@ -795,7 +795,15 @@
       "dante_model_id": "DBRX2",
       "manufacturer": "Biamp",
       "aes67_configured": true,
-      "aes67_current": true
+      "aes67_current": true,
+      "firmware_version": "4.2.4",
+      "software_version": "1.0.6",
+      "min_latency_us": 250,
+      "max_latency_us": 5000,
+      "tx_flow_count": 2,
+      "rx_flow_count": 2,
+      "num_networks": 2,
+      "is_locked": true
     },
     {
       "name": "device-b-ceiling",
@@ -883,7 +891,14 @@
       "dante_model_id": "DEMBDN",
       "manufacturer": "Sennheiser",
       "aes67_configured": false,
-      "aes67_current": false
+      "aes67_current": false,
+      "firmware_version": "2.1.0",
+      "min_latency_us": 500,
+      "max_latency_us": 5000,
+      "tx_flow_count": 1,
+      "rx_flow_count": 1,
+      "num_networks": 1,
+      "is_locked": false
     },
     {
       "name": "device-c-amp",
@@ -958,7 +973,11 @@
       "dante_model_id": "DBRX2",
       "manufacturer": "Biamp",
       "aes67_configured": false,
-      "aes67_current": false
+      "aes67_current": false,
+      "firmware_version": "1.2.1",
+      "min_latency_us": 1000,
+      "max_latency_us": 5000,
+      "rx_flow_count": 2
     },
     {
       "name": "device-d-io",
@@ -1062,7 +1081,14 @@
       "dante_model_id": "DAI2O2",
       "manufacturer": "Audinate",
       "aes67_configured": true,
-      "aes67_current": false
+      "aes67_current": false,
+      "firmware_version": "1.0.4",
+      "min_latency_us": 1000,
+      "max_latency_us": 5000,
+      "tx_flow_count": 1,
+      "rx_flow_count": 1,
+      "num_networks": 1,
+      "is_locked": false
     },
     {
       "name": "device-f-recorder",
@@ -1234,7 +1260,14 @@
       "dante_model_id": "DVS",
       "manufacturer": "Audinate",
       "aes67_configured": false,
-      "aes67_current": false
+      "aes67_current": false,
+      "software_version": "4.2.1",
+      "min_latency_us": 1000,
+      "max_latency_us": 4000,
+      "tx_flow_count": 1,
+      "rx_flow_count": 3,
+      "num_networks": 1,
+      "is_locked": false
     }
   ],
   "subscriptions": [

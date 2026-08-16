@@ -16,6 +16,35 @@ wheels/
 # Snapshot reports
 snapshot_report.html
 
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.secret
+*.secrets
+config.toml
+
+# Local editor and analysis state
+.idea/
+.vscode/
+.coverage
+htmlcov/
+*.local
+
+# Captures and local runtime data
+captures/
+*.pcap
+*.pcapng
+*.log
+*.dump
+*.db
+*.sqlite
+*.sqlite3
+
 # Node tooling
 node_modules/
 npm-debug.log*

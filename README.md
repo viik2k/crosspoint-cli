@@ -52,6 +52,7 @@ PgUp PgDn ^b ^f   page rows          \        toggle sidebar
 H L               page columns       r        force refresh
 0 $ Home End      first / last col   ?        help
 n N               next / prev problem cell    q  quit
+m M               next / prev problem on this device
 p                 cycle all / problems / errors
 s                 sort the focused Clock column
 Ctrl-P            jump to a device by name

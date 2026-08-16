@@ -111,6 +111,29 @@ def test_problem_jump_wraps_and_reverses(matrix):
     assert (matrix.cursor_row, matrix.cursor_col) == first
 
 
+def test_device_problem_stays_on_the_current_device(matrix):
+    """`m` is the device-scoped version of `n`: work one rack without leaving it."""
+    matrix.action_problem(1)
+    device = matrix.row.device
+    scoped = {p for p in matrix._problems if matrix.rows[p[0]].device == device}
+    assert len(scoped) > 1, "fixture device should have several problem cells"
+
+    seen = set()
+    for _ in range(len(scoped)):
+        matrix.action_device_problem(1)
+        assert matrix.row.device == device
+        assert matrix.cell is not None
+        assert matrix.cell.severity in (Severity.WARN, Severity.ERROR)
+        seen.add((matrix.cursor_row, matrix.cursor_col))
+    assert seen == scoped, "device walk must visit every problem cell and only those"
+
+    # Reversing the same number of steps returns to the start.
+    start = (matrix.cursor_row, matrix.cursor_col)
+    for _ in range(len(scoped)):
+        matrix.action_device_problem(-1)
+    assert (matrix.cursor_row, matrix.cursor_col) == start
+
+
 def test_expanding_one_device_does_not_expand_the_rest(matrix):
     matrix.cursor_row = 0
     device = matrix.rows[0].device

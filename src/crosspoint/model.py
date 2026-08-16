@@ -149,6 +149,18 @@ class Device:
     # until the device is rebooted, which is exactly the case worth showing.
     aes67_configured: bool | None = None
     aes67_current: bool | None = None
+    # Remaining identity/capability fields off netaudio's device model. Latency
+    # bounds are microseconds like `latency_us` — the wire reports
+    # min_latency_us/max_latency_us and netaudio converts to seconds; crosspoint
+    # keeps the wire units.
+    firmware_version: str | None = None
+    software_version: str | None = None
+    min_latency_us: int | None = None
+    max_latency_us: int | None = None
+    tx_flow_count: int | None = None
+    rx_flow_count: int | None = None
+    num_networks: int | None = None
+    is_locked: bool | None = None
 
     @property
     def aes67_pending_reboot(self) -> bool:

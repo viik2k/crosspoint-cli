@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Unofficial read-only TUI for Dante and AES67 audio networks"
 readme = "README.md"
 authors = [
-    { name = "crosspoint contributors", email = "opensource@example.invalid" }
+    { name = "crosspoint contributors" }
 ]
 requires-python = ">=3.12"
 license = "MIT"

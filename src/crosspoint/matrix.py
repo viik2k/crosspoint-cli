@@ -28,6 +28,7 @@ from __future__ import annotations
 
 from bisect import bisect_left, bisect_right
 from dataclasses import dataclass, field
+from typing import Any, ClassVar, override
 
 from rich.segment import Segment
 from rich.style import Style
@@ -39,7 +40,7 @@ from textual.scroll_view import ScrollView
 from textual.strip import Strip
 
 from . import glyphs
-from .model import Severity, Snapshot, Subscription
+from .model import Channel, Severity, Snapshot, Subscription
 from .theme import ACCENT, BACKGROUND, PANEL, PRIMARY, SEVERITY_COLOURS, TEXT_DIM, TEXT_MUTED
 
 CELL_W = 2  # glyph + space. Fixed: strict column alignment everywhere.
@@ -118,9 +119,9 @@ _CURSOR = Style(color=BACKGROUND, bgcolor=PRIMARY, bold=True)
 class Matrix(ScrollView):
     """Virtualised, foldable subscription grid."""
 
-    can_focus = True
+    can_focus: ClassVar[bool] = True
 
-    BINDINGS = [
+    BINDINGS: ClassVar[list[Binding]] = [
         Binding("j,down", "move(1,0)", "Down", show=False),
         Binding("k,up", "move(-1,0)", "Up", show=False),
         Binding("h,left", "move(0,-1)", "Left", show=False),
@@ -137,6 +138,8 @@ class Matrix(ScrollView):
         Binding("dollar_sign,end", "edge(1)", "Last column", show=False),
         Binding("n", "problem(1)", "Next problem"),
         Binding("N", "problem(-1)", "Prev problem", show=False),
+        Binding("m", "device_problem(1)", "Next problem (device)"),
+        Binding("M", "device_problem(-1)", "Prev problem (device)", show=False),
         Binding("p", "cycle_severity", "Problems only"),
         Binding("enter", "inspect", "Inspect"),
         Binding("space", "fold_row", "Fold RX"),
@@ -164,14 +167,14 @@ class Matrix(ScrollView):
             super().__init__()
             self.matrix = matrix
 
-    def __init__(self, snapshot: Snapshot | None = None, **kwargs) -> None:
+    def __init__(self, snapshot: Snapshot | None = None, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.rows: list[Row] = []
         self.cols: list[Col] = []
         self._expanded_rx: set[str] = set()
         self._expanded_tx: set[str] = set()
         self._problems: list[tuple[int, int]] = []
-        self._snapshot = snapshot or Snapshot()
+        self._snapshot: Snapshot = snapshot or Snapshot()
         self.load(self._snapshot)
 
     # ---- data -----------------------------------------------------------
@@ -191,7 +194,11 @@ class Matrix(ScrollView):
         self._rebuild()
         self._restore(*anchor)
 
-    def _restore(self, row_key: tuple | None, col_key: tuple | None) -> None:
+    def _restore(
+        self,
+        row_key: tuple[str, str | None] | None,
+        col_key: tuple[str, str | None] | None,
+    ) -> None:
         if row_key is not None:
             for i, row in enumerate(self.rows):
                 if (row.device, row.channel) == row_key:
@@ -225,7 +232,9 @@ class Matrix(ScrollView):
     def _rebuild(self) -> None:
         rx_needles, tx_needles = self._needles()
 
-        def keep(needles: list[str], device: str, channels: tuple) -> tuple:
+        def keep(
+            needles: list[str], device: str, channels: tuple[Channel, ...]
+        ) -> tuple[Channel, ...]:
             """Channels of `device` passing `needles`; a needle may match either name.
 
             The empty and whole-device-matches cases skip the per-channel scan
@@ -464,6 +473,29 @@ class Matrix(ScrollView):
             target = self._problems[i - 1]
         self._set_cursor(*target)
 
+    def action_device_problem(self, direction: int) -> None:
+        """Jump to the next/previous problem cell on the current RX device.
+
+        `n` is row-major over the whole matrix; when you are working one device
+        you want to stay on it, not bounce to whichever rack is next.
+        """
+        row = self.row
+        if row is None or not self._problems:
+            self.app.bell()
+            return
+        scoped = [p for p in self._problems if self.rows[p[0]].device == row.device]
+        if not scoped:
+            self.app.bell()
+            return
+        here = (self.cursor_row, self.cursor_col)
+        if direction > 0:
+            i = bisect_right(scoped, here)
+            target = scoped[i % len(scoped)]
+        else:
+            i = bisect_left(scoped, here)
+            target = scoped[i - 1]
+        self._set_cursor(*target)
+
     def _scroll_to_cursor(self) -> None:
         # Scrollbars overlay the content region, so scroll maths has to use the
         # region they leave behind or the last row/column never becomes visible.
@@ -514,6 +546,7 @@ class Matrix(ScrollView):
         body = Strip(cells).crop(offset, offset + span).extend_cell_length(span)
         return Strip.join([Strip(gutter), body]).simplify()
 
+    @override
     def render_line(self, y: int) -> Strip:
         if y < HEADER_H:
             return self._render_header(y)

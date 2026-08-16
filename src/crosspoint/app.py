@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import time
+from collections.abc import AsyncIterator
+from typing import Any, ClassVar, cast, override
 
 from rich.text import Text
 from textual.app import App, ComposeResult
@@ -34,9 +36,10 @@ def _clock_glyph(device: Device) -> tuple[str, str]:
     return glyphs.CLOCK_SLAVE, SEVERITY_COLOURS[Severity.OK]
 
 
-class HelpScreen(ModalScreen):
-    BINDINGS = [Binding("escape,question_mark,q", "dismiss", "Close")]
+class HelpScreen(ModalScreen[None]):
+    BINDINGS: ClassVar[list[Binding]] = [Binding("escape,question_mark,q", "dismiss", "Close")]
 
+    @override
     def compose(self) -> ComposeResult:
         yield Static(_help_text(), id="help-body")
 
@@ -44,34 +47,38 @@ class HelpScreen(ModalScreen):
 class DeviceProvider(Provider):
     """Command-palette entries for moving to a device in the matrix."""
 
-    async def search(self, query: str):
+    @override
+    async def search(self, query: str) -> AsyncIterator[Hit]:
         matcher = self.matcher(query)
-        for device in self.app.snapshot.devices:
+        app = cast(CrosspointApp, self.app)
+        for device in app.snapshot.devices:
             score = matcher.match(device.name)
             if score > 0:
                 yield Hit(
                     score,
                     device.name,
-                    lambda name=device.name: self.app.action_jump_to_device(name),
+                    lambda name=device.name: app.action_jump_to_device(name),
                     help="Jump to this device",
                 )
 
-    async def discover(self):
-        for device in self.app.snapshot.devices:
+    @override
+    async def discover(self) -> AsyncIterator[Hit]:
+        app = cast(CrosspointApp, self.app)
+        for device in app.snapshot.devices:
             yield Hit(
                 0,
                 device.name,
-                lambda name=device.name: self.app.action_jump_to_device(name),
+                lambda name=device.name: app.action_jump_to_device(name),
                 help="Jump to this device",
             )
 
 
 def _help_text() -> str:
     """Render the key reference from the bindings users can actually invoke."""
-    sections = (
-        ("app", CrosspointApp.BINDINGS),
-        ("routing", Matrix.BINDINGS),
-    )
+    sections: list[tuple[str, list[Binding]]] = [
+        ("app", list(CrosspointApp.BINDINGS)),
+        ("routing", list(Matrix.BINDINGS)),
+    ]
     lines = ["[b]crosspoint[/b] — unofficial read-only TUI for Dante and AES67", ""]
     for title, bindings in sections:
         lines.append(f"[b $accent]{title}[/]")
@@ -85,7 +92,7 @@ def _help_text() -> str:
 
 
 class Sidebar(ListView):
-    BINDINGS = [
+    BINDINGS: ClassVar[list[Binding]] = [
         Binding("j", "cursor_down", "Down", show=False),
         Binding("k", "cursor_up", "Up", show=False),
         Binding("g", "first", "Top", show=False),
@@ -99,8 +106,8 @@ class Sidebar(ListView):
         self.index = max(0, len(self) - 1)
 
 
-class CrosspointApp(App):
-    CSS = """
+class CrosspointApp(App[None]):
+    CSS: ClassVar[str] = """
     Screen { background: $background; }
 
     /* 1 row means 1 row: a border here would eat the only content line. */
@@ -154,7 +161,7 @@ class CrosspointApp(App):
     }
     """
 
-    BINDINGS = [
+    BINDINGS: ClassVar[list[Binding]] = [
         Binding("q", "quit", "Quit"),
         Binding("question_mark", "help", "Help"),
         Binding("ctrl+p", "command_palette", "Commands"),
@@ -165,9 +172,9 @@ class CrosspointApp(App):
         Binding("s", "sort_clock", "Sort clock"),
         *[Binding(str(i + 1), f"tab('{name}')", name.title()) for i, name in enumerate(TABS)],
     ]
-    COMMANDS = {DeviceProvider}
+    COMMANDS: ClassVar[set[type[Provider]]] = {DeviceProvider}
 
-    def __init__(self, backend: Backend, iface: str | None = None, **kwargs) -> None:
+    def __init__(self, backend: Backend, iface: str | None = None, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         # Before the screen is registered: CSS is parsed then, and it references
         # the theme's variables.
@@ -179,10 +186,11 @@ class CrosspointApp(App):
         self._refreshed_at = time.monotonic()
         self._filter_timer: Timer | None = None
         self._event_source: tuple[str, ...] = ()
-        self._clock_sort = ("role", False)
+        self._clock_sort: tuple[str, bool] = ("role", False)
 
     # ---- layout ---------------------------------------------------------
 
+    @override
     def compose(self) -> ComposeResult:
         yield Static(id="header")
         with Horizontal(id="body"):
@@ -294,7 +302,7 @@ class CrosspointApp(App):
         for column_key, label, _ in self._clock_columns:
             if column_key == key:
                 label += " v" if reverse else " ^"
-            table.columns[column_key].label = Text(label)
+            table.columns[cast(Any, column_key)].label = Text(label)
         for device in ordered:
             clock = device.clock
             if clock is None:
@@ -379,6 +387,8 @@ class CrosspointApp(App):
         device = devices[min(sidebar.index or 0, len(devices) - 1)]
         mark, colour = _clock_glyph(device)
         state = "online" if device.online else "OFFLINE"
+        if device.is_locked:
+            state = f"{state} {glyphs.LOCK} locked"
         maker = f"{device.manufacturer} " if device.manufacturer else ""
         formats = sorted(
             {c.format for c in device.tx_channels + device.rx_channels if c.format}
@@ -389,11 +399,39 @@ class CrosspointApp(App):
             + (f"  [$text-dim]({device.dante_model_id})[/]" if device.dante_model_id else ""),
             f"id           {device.id}" + (f"  mac {device.mac_address}" if device.mac_address else ""),
             f"addresses    {', '.join(device.addresses) or '-'}",
-            f"{glyphs.SAMPLE_RATE} sample rate  {device.sample_rate or '-'} Hz",
-            f"{glyphs.LATENCY} latency      {device.latency_us or '-'} us",
-            f"channels     {len(device.tx_channels)} tx / {len(device.rx_channels)} rx"
-            + (f"  [$text-dim]{'/'.join(formats)}[/]" if formats else ""),
         ]
+        versions = "   ".join(
+            f"{label} {value}"
+            for label, value in (("fw", device.firmware_version), ("sw", device.software_version))
+            if value
+        )
+        if versions:
+            lines.append(f"versions     {versions}")
+        latency = str(device.latency_us or "-")
+        if device.min_latency_us is not None or device.max_latency_us is not None:
+            lo = device.min_latency_us if device.min_latency_us is not None else "?"
+            hi = device.max_latency_us if device.max_latency_us is not None else "?"
+            latency = f"{latency} us (device allows {lo}-{hi} us)"
+        else:
+            latency = f"{latency} us"
+        lines.append(
+            f"{glyphs.SAMPLE_RATE} sample rate  {device.sample_rate or '-'} Hz"
+        )
+        lines.append(f"{glyphs.LATENCY} latency      {latency}")
+        channels = f"{len(device.tx_channels)} tx / {len(device.rx_channels)} rx"
+        # Flows and network count say how full a device is; formats say what it speaks.
+        extras = []
+        if device.tx_flow_count is not None or device.rx_flow_count is not None:
+            tx = device.tx_flow_count if device.tx_flow_count is not None else "?"
+            rx = device.rx_flow_count if device.rx_flow_count is not None else "?"
+            extras.append(f"{tx}/{rx} flows")
+        if device.num_networks is not None:
+            extras.append(f"{device.num_networks} net{'s' if device.num_networks != 1 else ''}")
+        if formats:
+            extras.append("/".join(formats))
+        if extras:
+            channels += f"  [$text-dim]{'  '.join(extras)}[/]"
+        lines.append(f"channels     {channels}")
         if device.clock:
             ppm = device.clock.frequency_offset_ppm
             lines.append(

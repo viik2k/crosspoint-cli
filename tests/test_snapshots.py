@@ -7,6 +7,8 @@ rendering, a snapshot moves.
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 import pytest
 
 from crosspoint.app import CrosspointApp, _help_text
@@ -84,6 +86,12 @@ def test_fixture_covers_the_interesting_states():
         if d.clock and d.clock.role == "slave" and abs(d.clock.frequency_offset_ppm or 0) > 5
     ]
     assert drifting, "fixture must contain a clock slave with a large offset"
+    # The netaudio identity/capability fields must actually round-trip.
+    assert any(d.firmware_version for d in snap.devices)
+    assert any(d.software_version for d in snap.devices)
+    assert any(d.is_locked for d in snap.devices)
+    assert any(d.max_latency_us is not None for d in snap.devices)
+    assert any(d.num_networks == 2 for d in snap.devices)
 
 
 def test_cell_breakdown_is_worst_first():
@@ -110,7 +118,7 @@ def test_deferred_ui_features_are_wired():
             assert app._clock_sort == ("role", False)
             app._sort_clock("device")
             assert app._clock_sort == ("device", False)
-            assert table.columns["device"].label.plain.endswith("^")
+            assert table.columns[cast(Any, "device")].label.plain.endswith("^")
             app._append_events((*app.snapshot.events, "new event"))
             app._append_events((*app.snapshot.events, "new event"))
             assert app._event_source[-1] == "new event"
@@ -120,7 +128,8 @@ def test_deferred_ui_features_are_wired():
             assert isinstance(app.screen, CommandPalette)
             await pilot.press("escape")
             app.action_jump_to_device("device-e-io")
-            assert app.query_one("#matrix").row.device == "device-e-io"
+            row = app.query_one("#matrix", Matrix).row
+            assert row is not None and row.device == "device-e-io"
 
     asyncio.run(run())
     help_text = _help_text()
