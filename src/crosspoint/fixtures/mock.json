@@ -1,0 +1,1588 @@
+{
+  "taken_at": 1755340800.0,
+  "devices": [
+    {
+      "name": "device-a-dsp",
+      "id": "020000000001",
+      "addresses": [
+        "192.0.2.11"
+      ],
+      "model": "TesiraFORTE X 400",
+      "sample_rate": 48000,
+      "latency_us": 1000,
+      "tx_channels": [
+        {
+          "index": 1,
+          "name": "Out-1",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 2,
+          "name": "Out-2",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 3,
+          "name": "Out-3",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 4,
+          "name": "Out-4",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 5,
+          "name": "Out-5",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 6,
+          "name": "Out-6",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 7,
+          "name": "Out-7",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 8,
+          "name": "Out-8",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 9,
+          "name": "Out-9",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 10,
+          "name": "Out-10",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 11,
+          "name": "Out-11",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 12,
+          "name": "Out-12",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 13,
+          "name": "Out-13",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 14,
+          "name": "Out-14",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 15,
+          "name": "Out-15",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 16,
+          "name": "Out-16",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 17,
+          "name": "Out-17",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 18,
+          "name": "Out-18",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 19,
+          "name": "Out-19",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 20,
+          "name": "Out-20",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 21,
+          "name": "Out-21",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 22,
+          "name": "Out-22",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 23,
+          "name": "Out-23",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 24,
+          "name": "Out-24",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 25,
+          "name": "Out-25",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 26,
+          "name": "Out-26",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 27,
+          "name": "Out-27",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 28,
+          "name": "Out-28",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 29,
+          "name": "Out-29",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 30,
+          "name": "Out-30",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 31,
+          "name": "Out-31",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 32,
+          "name": "Out-32",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 33,
+          "name": "Out-33",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 34,
+          "name": "Out-34",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 35,
+          "name": "Out-35",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 36,
+          "name": "Out-36",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 37,
+          "name": "Out-37",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 38,
+          "name": "Out-38",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 39,
+          "name": "Out-39",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 40,
+          "name": "Out-40",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 41,
+          "name": "Out-41",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 42,
+          "name": "Out-42",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 43,
+          "name": "Out-43",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 44,
+          "name": "Out-44",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 45,
+          "name": "Out-45",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 46,
+          "name": "Out-46",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 47,
+          "name": "Out-47",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 48,
+          "name": "Out-48",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 49,
+          "name": "Out-49",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 50,
+          "name": "Out-50",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 51,
+          "name": "Out-51",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 52,
+          "name": "Out-52",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 53,
+          "name": "Out-53",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 54,
+          "name": "Out-54",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 55,
+          "name": "Out-55",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 56,
+          "name": "Out-56",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 57,
+          "name": "Out-57",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 58,
+          "name": "Out-58",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 59,
+          "name": "Out-59",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 60,
+          "name": "Out-60",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 61,
+          "name": "Out-61",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 62,
+          "name": "Out-62",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 63,
+          "name": "Out-63",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 64,
+          "name": "Out-64",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        }
+      ],
+      "rx_channels": [
+        {
+          "index": 1,
+          "name": "In-1",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 2,
+          "name": "In-2",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 3,
+          "name": "In-3",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 4,
+          "name": "In-4",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 5,
+          "name": "In-5",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 6,
+          "name": "In-6",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 7,
+          "name": "In-7",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 8,
+          "name": "In-8",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 9,
+          "name": "In-9",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 10,
+          "name": "In-10",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 11,
+          "name": "In-11",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 12,
+          "name": "In-12",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 13,
+          "name": "In-13",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 14,
+          "name": "In-14",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 15,
+          "name": "In-15",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 16,
+          "name": "In-16",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 17,
+          "name": "In-17",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 18,
+          "name": "In-18",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 19,
+          "name": "In-19",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 20,
+          "name": "In-20",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 21,
+          "name": "In-21",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 22,
+          "name": "In-22",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 23,
+          "name": "In-23",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 24,
+          "name": "In-24",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 25,
+          "name": "In-25",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 26,
+          "name": "In-26",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 27,
+          "name": "In-27",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 28,
+          "name": "In-28",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 29,
+          "name": "In-29",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 30,
+          "name": "In-30",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 31,
+          "name": "In-31",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 32,
+          "name": "In-32",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 33,
+          "name": "In-33",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 34,
+          "name": "In-34",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 35,
+          "name": "In-35",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 36,
+          "name": "In-36",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 37,
+          "name": "In-37",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 38,
+          "name": "In-38",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 39,
+          "name": "In-39",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 40,
+          "name": "In-40",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 41,
+          "name": "In-41",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 42,
+          "name": "In-42",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 43,
+          "name": "In-43",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 44,
+          "name": "In-44",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 45,
+          "name": "In-45",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 46,
+          "name": "In-46",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 47,
+          "name": "In-47",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 48,
+          "name": "In-48",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 49,
+          "name": "In-49",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 50,
+          "name": "In-50",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 51,
+          "name": "In-51",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 52,
+          "name": "In-52",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 53,
+          "name": "In-53",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 54,
+          "name": "In-54",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 55,
+          "name": "In-55",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 56,
+          "name": "In-56",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 57,
+          "name": "In-57",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 58,
+          "name": "In-58",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 59,
+          "name": "In-59",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 60,
+          "name": "In-60",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 61,
+          "name": "In-61",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 62,
+          "name": "In-62",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 63,
+          "name": "In-63",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 64,
+          "name": "In-64",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        }
+      ],
+      "clock": {
+        "role": "master",
+        "sync_state": "locked",
+        "source": "internal",
+        "frequency_offset_ppm": 0.0,
+        "external_sync": false
+      },
+      "online": true,
+      "last_seen": 1755340800.0,
+      "mac_address": "02:00:00:00:00:01",
+      "dante_model_id": "DBRX2",
+      "manufacturer": "Biamp",
+      "aes67_configured": true,
+      "aes67_current": true
+    },
+    {
+      "name": "device-b-ceiling",
+      "id": "020000000002",
+      "addresses": [
+        "192.0.2.21"
+      ],
+      "model": "TeamConnect Ceiling 2",
+      "sample_rate": 48000,
+      "latency_us": 1000,
+      "tx_channels": [
+        {
+          "index": 1,
+          "name": "Beam-1",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 2,
+          "name": "Beam-2",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 3,
+          "name": "Beam-3",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 4,
+          "name": "Beam-4",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 5,
+          "name": "Beam-5",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 6,
+          "name": "Beam-6",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 7,
+          "name": "Beam-7",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 8,
+          "name": "Beam-8",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        }
+      ],
+      "rx_channels": [
+        {
+          "index": 1,
+          "name": "Ref-1",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 2,
+          "name": "Ref-2",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        }
+      ],
+      "clock": {
+        "role": "slave",
+        "sync_state": "locked",
+        "source": "device-a-dsp",
+        "frequency_offset_ppm": 0.4,
+        "external_sync": false
+      },
+      "online": true,
+      "last_seen": 1755340799.0,
+      "mac_address": "02:00:00:00:00:02",
+      "dante_model_id": "DEMBDN",
+      "manufacturer": "Sennheiser",
+      "aes67_configured": false,
+      "aes67_current": false
+    },
+    {
+      "name": "device-c-amp",
+      "id": "020000000003",
+      "addresses": [
+        "192.0.2.31"
+      ],
+      "model": "AMP-450P",
+      "sample_rate": 48000,
+      "latency_us": 2000,
+      "tx_channels": [],
+      "rx_channels": [
+        {
+          "index": 1,
+          "name": "Amp-1",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 2,
+          "name": "Amp-2",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 3,
+          "name": "Amp-3",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 4,
+          "name": "Amp-4",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 5,
+          "name": "Amp-5",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 6,
+          "name": "Amp-6",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 7,
+          "name": "Amp-7",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 8,
+          "name": "Amp-8",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        }
+      ],
+      "clock": {
+        "role": "slave",
+        "sync_state": "unlocked",
+        "source": "device-a-dsp",
+        "frequency_offset_ppm": -42.7,
+        "external_sync": false
+      },
+      "online": true,
+      "last_seen": 1755340795.0,
+      "mac_address": "02:00:00:00:00:03",
+      "dante_model_id": "DBRX2",
+      "manufacturer": "Biamp",
+      "aes67_configured": false,
+      "aes67_current": false
+    },
+    {
+      "name": "device-d-io",
+      "id": "020000000004",
+      "addresses": [
+        "192.0.2.41"
+      ],
+      "model": "AVIO 2x2",
+      "sample_rate": 48000,
+      "latency_us": 1000,
+      "tx_channels": [
+        {
+          "index": 1,
+          "name": "Mic-1",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 2,
+          "name": "Mic-2",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        }
+      ],
+      "rx_channels": [
+        {
+          "index": 1,
+          "name": "Spk-1",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 2,
+          "name": "Spk-2",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        }
+      ],
+      "clock": {
+        "role": "unknown",
+        "sync_state": "unknown",
+        "source": null,
+        "frequency_offset_ppm": null,
+        "external_sync": false
+      },
+      "online": false,
+      "last_seen": 1755339120.0,
+      "mac_address": "02:00:00:00:00:04",
+      "dante_model_id": "DAI2O2",
+      "manufacturer": "Audinate",
+      "aes67_configured": null,
+      "aes67_current": null
+    },
+    {
+      "name": "device-e-io",
+      "id": "020000000005",
+      "addresses": [
+        "192.0.2.42"
+      ],
+      "model": "AVIO 2x2",
+      "sample_rate": 48000,
+      "latency_us": 1000,
+      "tx_channels": [
+        {
+          "index": 1,
+          "name": "Mic-1",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 2,
+          "name": "Mic-2",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        }
+      ],
+      "rx_channels": [
+        {
+          "index": 1,
+          "name": "Spk-1",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 2,
+          "name": "Spk-2",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        }
+      ],
+      "clock": {
+        "role": "slave",
+        "sync_state": "locked",
+        "source": "device-a-dsp",
+        "frequency_offset_ppm": 1.2,
+        "external_sync": true
+      },
+      "online": true,
+      "last_seen": 1755340800.0,
+      "mac_address": "02:00:00:00:00:05",
+      "dante_model_id": "DAI2O2",
+      "manufacturer": "Audinate",
+      "aes67_configured": true,
+      "aes67_current": false
+    },
+    {
+      "name": "device-f-recorder",
+      "id": "020000000006",
+      "addresses": [
+        "192.0.2.51"
+      ],
+      "model": "Dante Virtual Soundcard",
+      "sample_rate": 48000,
+      "latency_us": 4000,
+      "tx_channels": [
+        {
+          "index": 1,
+          "name": "Play-1",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 2,
+          "name": "Play-2",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 3,
+          "name": "Play-3",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 4,
+          "name": "Play-4",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 5,
+          "name": "Play-5",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 6,
+          "name": "Play-6",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 7,
+          "name": "Play-7",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 8,
+          "name": "Play-8",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        }
+      ],
+      "rx_channels": [
+        {
+          "index": 1,
+          "name": "Rec-1",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 2,
+          "name": "Rec-2",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 3,
+          "name": "Rec-3",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 4,
+          "name": "Rec-4",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 5,
+          "name": "Rec-5",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 6,
+          "name": "Rec-6",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 7,
+          "name": "Rec-7",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 8,
+          "name": "Rec-8",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 9,
+          "name": "Rec-9",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 10,
+          "name": "Rec-10",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 11,
+          "name": "Rec-11",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 12,
+          "name": "Rec-12",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 13,
+          "name": "Rec-13",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 14,
+          "name": "Rec-14",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 15,
+          "name": "Rec-15",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        },
+        {
+          "index": 16,
+          "name": "Rec-16",
+          "bit_depth": 24,
+          "samples_per_frame": 48
+        }
+      ],
+      "clock": {
+        "role": "slave",
+        "sync_state": "locked",
+        "source": "device-a-dsp",
+        "frequency_offset_ppm": -0.8,
+        "external_sync": false
+      },
+      "online": true,
+      "last_seen": 1755340800.0,
+      "mac_address": "02:00:00:00:00:06",
+      "dante_model_id": "DVS",
+      "manufacturer": "Audinate",
+      "aes67_configured": false,
+      "aes67_current": false
+    }
+  ],
+  "subscriptions": [
+    {
+      "rx_device": "device-a-dsp",
+      "rx_channel": "In-1",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-1",
+      "status": 9,
+      "reason": null
+    },
+    {
+      "rx_device": "device-a-dsp",
+      "rx_channel": "In-2",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-2",
+      "status": 9,
+      "reason": null
+    },
+    {
+      "rx_device": "device-a-dsp",
+      "rx_channel": "In-3",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-3",
+      "status": 9,
+      "reason": null
+    },
+    {
+      "rx_device": "device-a-dsp",
+      "rx_channel": "In-4",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-4",
+      "status": 9,
+      "reason": null
+    },
+    {
+      "rx_device": "device-a-dsp",
+      "rx_channel": "In-5",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-5",
+      "status": 9,
+      "reason": null
+    },
+    {
+      "rx_device": "device-a-dsp",
+      "rx_channel": "In-6",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-6",
+      "status": 9,
+      "reason": null
+    },
+    {
+      "rx_device": "device-a-dsp",
+      "rx_channel": "In-7",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-7",
+      "status": 9,
+      "reason": null
+    },
+    {
+      "rx_device": "device-a-dsp",
+      "rx_channel": "In-8",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-8",
+      "status": 9,
+      "reason": null
+    },
+    {
+      "rx_device": "device-a-dsp",
+      "rx_channel": "In-9",
+      "tx_device": "device-e-io",
+      "tx_channel": "Mic-1",
+      "status": 9,
+      "reason": null
+    },
+    {
+      "rx_device": "device-a-dsp",
+      "rx_channel": "In-10",
+      "tx_device": "device-e-io",
+      "tx_channel": "Mic-2",
+      "status": 256,
+      "reason": "Transmitter is advertising no audio data"
+    },
+    {
+      "rx_device": "device-a-dsp",
+      "rx_channel": "In-11",
+      "tx_device": "device-d-io",
+      "tx_channel": "Mic-1",
+      "status": 1,
+      "reason": "device-d-io is not present on the network"
+    },
+    {
+      "rx_device": "device-a-dsp",
+      "rx_channel": "In-12",
+      "tx_device": "device-d-io",
+      "tx_channel": "Mic-2",
+      "status": 1,
+      "reason": "device-d-io is not present on the network"
+    },
+    {
+      "rx_device": "device-c-amp",
+      "rx_channel": "Amp-1",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-1",
+      "status": 27,
+      "reason": "device-c-amp PTP offset -42.7ppm, unlocked from device-a-dsp"
+    },
+    {
+      "rx_device": "device-c-amp",
+      "rx_channel": "Amp-2",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-2",
+      "status": 27,
+      "reason": "device-c-amp PTP offset -42.7ppm, unlocked from device-a-dsp"
+    },
+    {
+      "rx_device": "device-c-amp",
+      "rx_channel": "Amp-3",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-3",
+      "status": 27,
+      "reason": "device-c-amp PTP offset -42.7ppm, unlocked from device-a-dsp"
+    },
+    {
+      "rx_device": "device-c-amp",
+      "rx_channel": "Amp-4",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-4",
+      "status": 27,
+      "reason": "device-c-amp PTP offset -42.7ppm, unlocked from device-a-dsp"
+    },
+    {
+      "rx_device": "device-c-amp",
+      "rx_channel": "Amp-5",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-5",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-c-amp",
+      "rx_channel": "Amp-6",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-6",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-c-amp",
+      "rx_channel": "Amp-7",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-7",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-c-amp",
+      "rx_channel": "Amp-8",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-8",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-1",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-16",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-2",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-17",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-3",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-18",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-4",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-19",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-5",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-20",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-6",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-21",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-7",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-22",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-8",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-23",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-9",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-1",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-10",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-2",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-11",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-3",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-12",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-4",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-13",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-5",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-14",
+      "tx_device": "device-b-ceiling",
+      "tx_channel": "Beam-6",
+      "status": 10,
+      "reason": null
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-15",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-63",
+      "status": 8,
+      "reason": "Flow creation in progress"
+    },
+    {
+      "rx_device": "device-f-recorder",
+      "rx_channel": "Rec-16",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-64",
+      "status": 22,
+      "reason": "device-f-recorder cannot reliably support any more inbound flows"
+    },
+    {
+      "rx_device": "device-e-io",
+      "rx_channel": "Spk-1",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-9",
+      "status": 9,
+      "reason": null
+    },
+    {
+      "rx_device": "device-e-io",
+      "rx_channel": "Spk-2",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-10",
+      "status": 9,
+      "reason": null
+    },
+    {
+      "rx_device": "device-d-io",
+      "rx_channel": "Spk-1",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-11",
+      "status": 15,
+      "reason": "could not communicate with transmitter"
+    },
+    {
+      "rx_device": "device-d-io",
+      "rx_channel": "Spk-2",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-12",
+      "status": 15,
+      "reason": "could not communicate with transmitter"
+    },
+    {
+      "rx_device": "device-b-ceiling",
+      "rx_channel": "Ref-1",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-13",
+      "status": 9,
+      "reason": null
+    },
+    {
+      "rx_device": "device-b-ceiling",
+      "rx_channel": "Ref-2",
+      "tx_device": "device-a-dsp",
+      "tx_channel": "Out-14",
+      "status": 9,
+      "reason": null
+    }
+  ],
+  "events": [
+    "17:59:12  discover  device-a-dsp        192.0.2.11  master",
+    "17:59:12  discover  device-b-ceiling    192.0.2.21",
+    "17:59:13  discover  device-c-amp        192.0.2.31",
+    "17:59:13  discover  device-e-io        192.0.2.42",
+    "17:59:14  discover  device-f-recorder       192.0.2.51",
+    "18:02:00  offline   device-d-io    192.0.2.41  no response for 30s",
+    "18:02:01  clock     device-c-amp        unlocked, offset -42.7ppm",
+    "18:02:01  sub       device-c-amp        4 subscriptions -> CLOCK_DOMAIN"
+  ]
+}

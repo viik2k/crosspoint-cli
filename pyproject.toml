@@ -1,0 +1,65 @@
+[project]
+name = "crosspoint"
+version = "0.1.0"
+description = "Unofficial read-only TUI for Dante and AES67 audio networks"
+readme = "README.md"
+authors = [
+    { name = "crosspoint contributors", email = "opensource@example.invalid" }
+]
+requires-python = ">=3.12"
+license = "MIT"
+keywords = [
+    "dante",
+    "audinate",
+    "aoip",
+    "aes67",
+    "audio-over-ip",
+    "dante-controller",
+    "tui",
+    "textual",
+    "network-audio",
+]
+classifiers = [
+    "Environment :: Console :: Curses",
+    "Intended Audience :: System Administrators",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: System :: Networking :: Monitoring",
+]
+dependencies = [
+    "textual>=8.2.8",
+]
+
+[project.optional-dependencies]
+# Only the live backend needs netaudio, and it drags in a platform-specific
+# wheel with a native DLL plus redis/sqlitedict/typer. Mock and pcap install clean.
+live = ["netaudio>=0.2.5"]
+
+[project.scripts]
+crosspoint = "crosspoint.cli:main"
+xp = "crosspoint.cli:main"
+
+[project.urls]
+Repository = "https://github.com/viik2k/crosspoint-cli"
+
+[build-system]
+requires = ["uv_build>=0.11.16,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-textual-snapshot>=1.0.0",
+    "ruff>=0.16.3",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+# Textual declares BINDINGS/CSS as mutable class attrs by design.
+ignore = ["RUF012"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
