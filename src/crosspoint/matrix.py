@@ -32,6 +32,7 @@ from typing import Any, ClassVar, override
 
 from rich.segment import Segment
 from rich.style import Style
+from textual import events
 from textual.binding import Binding
 from textual.geometry import Size
 from textual.message import Message
@@ -137,15 +138,15 @@ class Matrix(ScrollView):
         Binding("0,home", "edge(-1)", "First column", show=False),
         Binding("dollar_sign,end", "edge(1)", "Last column", show=False),
         Binding("n", "problem(1)", "Next problem"),
-        Binding("N", "problem(-1)", "Prev problem", show=False),
-        Binding("m", "device_problem(1)", "Next problem (device)"),
-        Binding("M", "device_problem(-1)", "Prev problem (device)", show=False),
-        Binding("p", "cycle_severity", "Problems only"),
-        Binding("enter", "inspect", "Inspect"),
-        Binding("space", "fold_row", "Fold RX"),
-        Binding("t", "fold_column", "Fold TX"),
-        Binding("E", "fold_all(False)", "Expand all", show=False),
-        Binding("C", "fold_all(True)", "Collapse all", show=False),
+        Binding("N", "problem(-1)", "Previous problem", show=False),
+        Binding("m", "device_problem(1)", "Next on this device"),
+        Binding("M", "device_problem(-1)", "Previous on this device", show=False),
+        Binding("p", "cycle_severity", "Only problems"),
+        Binding("enter", "inspect", "Details"),
+        Binding("space", "fold_row", "Open device"),
+        Binding("t", "fold_column", "Open transmitter"),
+        Binding("E", "fold_all(False)", "Open every device", show=False),
+        Binding("C", "fold_all(True)", "Close every device", show=False),
     ]
 
     cursor_row: reactive[int] = reactive(0)
@@ -513,6 +514,47 @@ class Matrix(ScrollView):
     def on_resize(self) -> None:
         self._scroll_to_cursor()
 
+    # ---- mouse ----------------------------------------------------------
+
+    def on_click(self, event: events.Click) -> None:
+        """Drive the grid the way a desktop GUI is driven.
+
+        Someone who has never used vim will not find `space` or `t`; they will
+        click. The gutter and the TX band are the tree controls, a cell is the
+        crosspoint. Nothing here is reachable only by mouse — every action has a
+        key too — but nothing is reachable only by key either.
+        """
+        offset = event.get_content_offset(self)
+        if offset is None:  # the border
+            return
+        self.focus()
+        x, y = offset
+        # x < GUTTER is the sticky first column, which does not scroll with the
+        # cells; -1 means "the click landed in the gutter, not on a crosspoint".
+        col = -1
+        if x >= GUTTER:
+            col = (int(self.scroll_offset.x) + x - GUTTER) // CELL_W
+            if col >= len(self.cols):
+                return
+
+        if y < HEADER_H:
+            # Line 0 carries the TX device names; clicking one folds that block.
+            if y == 0 and col >= 0:
+                self.cursor_col = col
+                self.action_fold_column()
+            return
+
+        row = y - HEADER_H + int(self.scroll_offset.y)
+        if not (0 <= row < len(self.rows)):
+            return
+        self.cursor_row = row
+        if col < 0:
+            if self.rows[row].channel is None:
+                self.action_fold_row()
+            return
+        self.cursor_col = col
+        self.action_inspect()
+
     def watch_cursor_row(self) -> None:
         self.refresh()
         self.post_message(self.CursorMoved(self))
@@ -587,7 +629,10 @@ class Matrix(ScrollView):
                 col = self.cols[i]
                 n = i + 1 if col.channel is None else col.number
                 cells.append(Segment(f"{n % 100:>2}" if n == 1 or n % 5 == 0 else "  ", _MUTED))
-            gutter = [Segment(f"{'RX / TX':<{GUTTER}}", _MUTED)]
+            # Words, not "RX / TX": the axes are the first thing a newcomer has
+            # to work out, and the glyphs say which way each one runs.
+            axes = f"receivers {glyphs.GROUP_OPEN}  tx {glyphs.GROUP_CLOSED}"
+            gutter = [Segment(f"{axes:<{GUTTER}}", _MUTED)]
 
         return self._join(gutter, cells, offset)
 

@@ -43,26 +43,54 @@ Two console scripts, same entry point: `crosspoint` and `xp`.
 The default glyph set needs a Nerd Font. `--ascii` swaps the whole set for plain
 consoles and serial terminals.
 
-## Keys
+## Driving it
+
+Nothing here is keyboard-only. The mouse does what it does in a desktop GUI:
+
+- Click a **cell** in the routing grid to see what is wired to what.
+- Click a **device name** down the left of the grid to open or close its channels;
+  click a **transmitter name** along the top to open or close its columns.
+- Click a device in the list or the Devices table to select it.
+- Click a **column header** to sort by it, click again to reverse.
+- The wheel scrolls.
+
+A legend sits under the grid, and `?` opens a key reference generated from the
+bindings themselves, so it cannot drift out of date.
 
 ```
 j k h l ← → ↑ ↓   move a cell        1 2 3 4  devices / routing / clock / events
 g G               top / bottom       Tab      cycle focus
-PgUp PgDn ^b ^f   page rows          \        toggle sidebar
-H L               page columns       r        force refresh
+PgUp PgDn ^b ^f   page rows          \        toggle the device list
+H L               page columns       r        reload
 0 $ Home End      first / last col   ?        help
 n N               next / prev problem cell    q  quit
 m M               next / prev problem on this device
 p                 cycle all / problems / errors
-s                 sort the focused Clock column
+s S               sort by next column / reverse it  (Devices and Clock tabs)
 Ctrl-P            jump to a device by name
 [ ]               prev / next TX device block
-Space             fold this RX device (row)
-t                 fold this TX device (column)
-E C               expand all / collapse all
+Space             open / close this receiver (row)
+t                 open / close this transmitter (column)
+E C               open all / close all
 Enter             inspect the crosspoint under the cursor
 /                 filter, Esc clears
 ```
+
+## The estate at a glance
+
+The header carries the verdict — `11 bad routes, 1 offline`, or `all healthy` —
+before anything else on the screen.
+
+The **Devices** tab is one row per device: state, problem count, clock role,
+sample rate, latency, channel counts. Sort by any column, because "which device
+is on the wrong sample rate" and "which device has the most broken
+subscriptions" are questions about the whole estate, not about one device. The
+device under the cursor is expanded underneath.
+
+The device list down the left side groups by name prefix once grouping actually
+groups — `CR03-Ceiling-Mic` files under `CR03` — so 200 devices read as the dozen
+rooms they live in, each with its own offline and fault tally. Selecting a device
+anywhere selects it everywhere, and parks the routing grid on it.
 
 ## The routing matrix at scale
 
@@ -75,6 +103,10 @@ So device blocks start **collapsed**. The default view is one row and one column
 device, and each cell shows the worst status of every subscription underneath it —
 which device pairs are unhealthy, on one screen. Open a block with `Space` (rows) or
 `t` (columns) when you want its channels.
+
+The grid is glyphs, so a legend is pinned under it: `◆ connected`, `● idle`,
+`▲ warning`, `✕ error`, `· no route`. ERROR is a distinct shape as well as a
+distinct colour, so the display never depends on colour alone.
 
 Navigation is built around jumping rather than scrolling:
 

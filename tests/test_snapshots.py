@@ -115,10 +115,12 @@ def test_deferred_ui_features_are_wired():
         async with app.run_test(size=SIZE) as pilot:
             await pilot.pause()
             table = app.query_one("#clock-table", DataTable)
-            assert app._clock_sort == ("role", False)
-            app._sort_clock("device")
-            assert app._clock_sort == ("device", False)
+            assert app._sort["clock-table"] == ("role", False)
+            app._toggle_sort("clock-table", "device")
+            assert app._sort["clock-table"] == ("device", False)
             assert table.columns[cast(Any, "device")].label.plain.endswith("^")
+            app._toggle_sort("clock-table", "device")  # same column reverses
+            assert app._sort["clock-table"] == ("device", True)
             app._append_events((*app.snapshot.events, "new event"))
             app._append_events((*app.snapshot.events, "new event"))
             assert app._event_source[-1] == "new event"
@@ -135,3 +137,77 @@ def test_deferred_ui_features_are_wired():
     help_text = _help_text()
     assert "ctrl+p" in help_text
     assert "cycle_severity" not in help_text
+
+
+def test_the_mouse_drives_the_matrix():
+    """Nothing may be keyboard-only: a click has to move, inspect and fold.
+
+    The coordinate maths crosses a border, a sticky gutter and two scroll
+    offsets, which is exactly the sort of arithmetic that quietly goes wrong.
+    """
+    import asyncio
+
+    from textual.widgets import Static
+
+    from crosspoint.matrix import CELL_W, GUTTER, HEADER_H
+
+    BORDER = 1  # Matrix has border-left
+
+    async def run():
+        app = CrosspointApp(MockBackend())
+        async with app.run_test(size=SIZE) as pilot:
+            await pilot.press("2")
+            await pilot.pause()
+            matrix = app.query_one("#matrix", Matrix)
+
+            # A cell: moves the cursor there and opens the detail panel.
+            await pilot.click(
+                Matrix, offset=(BORDER + GUTTER + 2 * CELL_W, HEADER_H + 1)
+            )
+            await pilot.pause()
+            assert (matrix.cursor_row, matrix.cursor_col) == (1, 2)
+            assert "open" in app.query_one("#detail", Static).classes
+
+            # The gutter is the tree control: clicking a device name folds it.
+            rows_before = len(matrix.rows)
+            await pilot.click(Matrix, offset=(BORDER + 3, HEADER_H + 1))
+            await pilot.pause()
+            assert len(matrix.rows) > rows_before, "gutter click should expand"
+            await pilot.click(Matrix, offset=(BORDER + 3, HEADER_H + 1))
+            await pilot.pause()
+            assert len(matrix.rows) == rows_before, "and collapse again"
+
+            # The TX band is the other tree control.
+            cols_before = len(matrix.cols)
+            await pilot.click(Matrix, offset=(BORDER + GUTTER, 0))
+            await pilot.pause()
+            assert len(matrix.cols) > cols_before, "band click should expand a column"
+
+    asyncio.run(run())
+
+
+def test_one_selected_device_across_both_lists():
+    """The sidebar and the Devices table must never disagree."""
+    import asyncio
+
+    from textual.widgets import DataTable
+
+    from crosspoint.app import Sidebar
+
+    async def run():
+        app = CrosspointApp(MockBackend())
+        async with app.run_test(size=SIZE) as pilot:
+            await pilot.pause()
+            table = app.query_one("#device-table", DataTable)
+            table.move_cursor(row=3)
+            await pilot.pause()
+            picked = str(table.ordered_rows[3].key.value)
+            assert app._selected == picked
+            sidebar = app.query_one(Sidebar)
+            assert sidebar.highlighted_child is not None
+            assert sidebar.highlighted_child.name == picked
+            # And the grid is already parked there.
+            row = app.query_one("#matrix", Matrix).row
+            assert row is not None and row.device == picked
+
+    asyncio.run(run())
