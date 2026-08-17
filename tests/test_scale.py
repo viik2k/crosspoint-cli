@@ -158,6 +158,84 @@ def test_tx_filter_does_not_empty_the_row_axis(matrix):
     assert 0 < len(matrix.cols) < DEVICES
 
 
+def test_sidebar_groups_by_name_prefix(big):
+    """200 flat rows is a wall. 25 rack headers is a map.
+
+    Headers are disabled ListItems, which is what keeps j/k and the mouse from
+    ever landing on one.
+    """
+    from crosspoint.app import Sidebar
+
+    async def run():
+        app = CrosspointApp(_Stub(big), iface="eth1")
+        async with app.run_test(size=(120, 34)) as pilot:
+            await pilot.pause()
+            sidebar = app.query_one(Sidebar)
+            headers = [item for item in sidebar.children if item.disabled]
+            assert len(headers) == DEVICES // 8, "one header per rack prefix"
+            assert len(sidebar.children) == DEVICES + len(headers)
+            # The selection must start on a device, never on a header.
+            assert sidebar.highlighted_child is not None
+            assert sidebar.highlighted_child.name is not None
+            # And walking must skip them.
+            sidebar.action_first()
+            for _ in range(12):
+                sidebar.action_cursor_down()
+                assert not sidebar._nodes[sidebar.index].disabled
+
+    asyncio.run(run())
+
+
+def test_small_networks_are_not_grouped():
+    """Six devices with six different prefixes would gain six useless rows."""
+    from crosspoint.app import Sidebar
+
+    snap = parse_snapshot({
+        "devices": [
+            {"name": name, "id": f"{i:012x}"} for i, name in
+            enumerate(["alpha", "bravo", "charlie", "delta"])
+        ],
+    })
+
+    async def run():
+        app = CrosspointApp(_Stub(snap))
+        async with app.run_test(size=(120, 34)) as pilot:
+            await pilot.pause()
+            sidebar = app.query_one(Sidebar)
+            assert not any(item.disabled for item in sidebar.children)
+
+    asyncio.run(run())
+
+
+def test_filling_the_lists_does_not_storm(big):
+    """Filling a list is not a user picking something out of it.
+
+    The sidebar and the Devices table hold cursors over the same devices in
+    different orders — the table is sorted, the sidebar is grouped. While a fill
+    emitted Highlighted, each list moved the other's cursor, which moved the
+    first one back: thousands of message round trips per refresh, and 20 seconds
+    to open the routing tab on a 40-device network.
+    """
+    calls: list[str] = []
+
+    async def run():
+        app = CrosspointApp(_Stub(big), iface="eth1")
+        original = CrosspointApp._select
+
+        def counted(name):
+            calls.append(name)
+            return original(app, name)
+
+        app._select = counted
+        async with app.run_test(size=(120, 34)) as pilot:
+            await pilot.pause()
+            await pilot.press("2")
+            await pilot.pause()
+
+    asyncio.run(run())
+    assert len(calls) < 5, f"{len(calls)} selection round trips for one refresh"
+
+
 def test_render_cost_is_viewport_bound(big):
     """Rendering must not care how wide the matrix is.
 
