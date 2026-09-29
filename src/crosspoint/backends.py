@@ -117,6 +117,76 @@ class PcapBackend:
         raise NotImplementedError("pcap replay is not built yet")
 
 
+class LiveBackend:
+    """Read-only ARC queries straight to each device via netaudio (extra: `crosspoint[live]`).
+
+    Never touches Dante Director / Domain Manager APIs, so their locked GET endpoints
+    are irrelevant. mDNS to find devices, then UDP ARC reads (names, channels, subs).
+    """
+
+    name: str = "live"
+
+    def __init__(self, iface: str | None = None, discovery_s: float = 3.0) -> None:
+        try:
+            import netaudio  # noqa: F401
+        except ImportError:
+            raise SystemExit("live backend needs: pip install 'crosspoint[live]'") from None
+        self.iface = iface  # ponytail: not bound to mDNS yet, DEFERRED.md item 4
+        self.discovery_s = discovery_s
+
+    async def snapshot(self) -> Snapshot:
+        import asyncio
+        import time
+
+        from netaudio.dante.browser import DanteBrowser
+
+        found = await DanteBrowser(mdns_timeout=self.discovery_s).get_devices() or {}
+        devs = list(found.values())
+        results = await asyncio.gather(*(d.populate_from_core() for d in devs), return_exceptions=True)
+        now = time.time()
+
+        devices, subs, events = [], [], []
+        for d, r in zip(devs, results, strict=True):
+            ok = r is True
+            name = d.name or d.server_name.removesuffix(".local.")
+            if not ok:
+                events.append(
+                    f"{name}: ARC read failed ({r!r})" if isinstance(r, Exception) else f"{name}: no ARC reply"
+                )
+            lat = lambda v: None if v is None else round(v * 1_000_000)  # noqa: E731
+            devices.append(
+                Device(
+                    name=name,
+                    id=d.mac_address or d.server_name,
+                    addresses=(str(d.ipv4),) if d.ipv4 else (),
+                    model=d.model or d.model_id or None,
+                    sample_rate=d.sample_rate,
+                    latency_us=lat(d.latency),
+                    tx_channels=tuple(
+                        Channel(c.number, c.name, "tx", friendly_name=c.friendly_name) for c in d.tx_channels.values()
+                    ),
+                    rx_channels=tuple(Channel(c.number, c.name, "rx") for c in d.rx_channels.values()),
+                    online=ok,
+                    last_seen=now if ok else None,
+                    mac_address=d.mac_address,
+                    dante_model_id=d.dante_model_id or d.model_id or None,
+                    manufacturer=d.manufacturer or None,
+                    aes67_configured=d.aes67_configured,
+                    min_latency_us=lat(d.min_latency),
+                    max_latency_us=lat(d.max_latency),
+                    is_locked=d.is_locked,
+                )
+            )
+            for s in d.subscriptions:
+                if s.status_code and s.tx_device_name:  # 0 == no subscription
+                    subs.append(
+                        Subscription(
+                            name, s.rx_channel_name, s.tx_device_name, s.tx_channel_name or "", status(s.status_code)
+                        )
+                    )
+        return Snapshot(tuple(devices), tuple(subs), tuple(events), now)
+
+
 def build(kind: str, iface: str | None = None, fixture: str | None = None) -> Backend:
     if kind == "mock":
         return MockBackend(fixture, iface)
@@ -125,7 +195,7 @@ def build(kind: str, iface: str | None = None, fixture: str | None = None) -> Ba
             raise SystemExit("--fixture PATH is required for the pcap backend")
         return PcapBackend(fixture, iface)
     if kind == "live":
-        raise SystemExit("the live backend is not built yet; use --backend mock")
+        return LiveBackend(iface)
     raise SystemExit(f"unknown backend: {kind}")
 
 
